@@ -1,0 +1,17 @@
+{
+  "id": "loja2",
+  "name": "Traço Urbano",
+  "brand_mark": "T",
+  "theme": {
+    "label": "Cidade solar",
+    "primary": "#292a44",
+    "accent": "#ed694b",
+    "surface": "#ece5dc"
+  },
+  "content": {
+    "eyebrow": "Design que acompanha o movimento",
+    "title": "A cidade também é sua casa.",
+    "description": "Uma seleção de peças versáteis para acompanhar ideias, encontros e novos caminhos.",
+    "body": "A Traço Urbano mistura função e expressão em um ritmo próprio. A identidade e o conteúdo desta loja vivem em configuração separada da outra vitrine."
+  }
+}

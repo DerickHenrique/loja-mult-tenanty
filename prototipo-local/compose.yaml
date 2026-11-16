@@ -1,0 +1,49 @@
+services:
+  app-deps:
+    image: composer:2.8.12
+    working_dir: /workspace/core
+    volumes:
+      - ./core:/workspace/core
+      - composer-cache:/tmp/cache
+    command: ["sh", "-lc", "if [ -f composer.lock ]; then composer install --no-interaction --prefer-dist; else composer update --no-interaction --prefer-dist; fi"]
+
+  frontend:
+    image: node:24.11.1-alpine
+    working_dir: /workspace/core
+    volumes:
+      - ./core:/workspace/core
+      - node-modules:/workspace/core/node_modules
+    command: ["sh", "-lc", "npm install --no-audit --no-fund && npm run dev -- --host 0.0.0.0"]
+    ports:
+      - "5173:5173"
+
+  web:
+    build:
+      context: ./docker/openlitespeed
+    image: demo-openlitespeed-lsphp84:1.8.4
+    depends_on:
+      app-deps:
+        condition: service_completed_successfully
+      frontend:
+        condition: service_started
+    ports:
+      - "80:80"
+    environment:
+      APP_KEY: ${APP_KEY:?Gere APP_KEY no arquivo prototipo-local/.env conforme o README}
+    volumes:
+      - ./core:/var/www/core:ro
+      - ./tenants/loja1/tenant.json:/var/www/tenants/loja1/tenant.json:ro
+      - ./tenants/loja2/tenant.json:/var/www/tenants/loja2/tenant.json:ro
+      - loja1-runtime:/var/www/tenants/loja1/runtime
+      - loja1-data:/var/www/tenants/loja1/data
+      - loja2-runtime:/var/www/tenants/loja2/runtime
+      - loja2-data:/var/www/tenants/loja2/data
+      - ./docker/openlitespeed/vhost.conf:/usr/local/lsws/conf/vhosts/Example/vhconf.conf:ro
+
+volumes:
+  composer-cache:
+  node-modules:
+  loja1-runtime:
+  loja1-data:
+  loja2-runtime:
+  loja2-data:

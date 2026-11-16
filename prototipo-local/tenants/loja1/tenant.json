@@ -1,0 +1,17 @@
+{
+  "id": "loja1",
+  "name": "Casa Botânica",
+  "brand_mark": "B",
+  "theme": {
+    "label": "Jardim sereno",
+    "primary": "#29483b",
+    "accent": "#d9825f",
+    "surface": "#e9e6da"
+  },
+  "content": {
+    "eyebrow": "Objetos para uma vida com mais calma",
+    "title": "Um pouco mais perto da natureza.",
+    "description": "Peças, plantas e pequenos rituais para deixar a casa florescer no seu próprio ritmo.",
+    "body": "Na Casa Botânica, cada escolha convida a desacelerar. Uma vitrine de demonstração que recebe seu tema e conteúdo a partir da configuração desta loja."
+  }
+}

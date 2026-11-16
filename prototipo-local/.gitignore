@@ -1,0 +1,5 @@
+/.env
+/core/vendor/
+/core/node_modules/
+/core/public/hot
+/core/public/build/
