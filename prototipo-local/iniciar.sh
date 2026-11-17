@@ -16,4 +16,13 @@ if [ ! -f .env ]; then
   echo "Chave local criada em prototipo-local/.env (arquivo ignorado pelo Git)."
 fi
 
+if ! grep -q '^INERTIA_DEVTOOLS_ENABLED=' .env; then
+  printf 'INERTIA_DEVTOOLS_ENABLED=false\n' >> .env
+fi
+
+# Docker needs an existing mount target inside the read-only Core bind mount.
+if [ ! -f core/.env ]; then
+  : > core/.env
+fi
+
 docker compose up --build

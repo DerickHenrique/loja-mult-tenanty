@@ -32,6 +32,7 @@ services:
       APP_KEY: ${APP_KEY:?Gere APP_KEY no arquivo prototipo-local/.env conforme o README}
     volumes:
       - ./core:/var/www/core:ro
+      - ./.env:/var/www/core/.env:ro
       - ./tenants/loja1/tenant.json:/var/www/tenants/loja1/tenant.json:ro
       - ./tenants/loja2/tenant.json:/var/www/tenants/loja2/tenant.json:ro
       - loja1-runtime:/var/www/tenants/loja1/runtime

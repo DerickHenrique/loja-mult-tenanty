@@ -1,4 +1,5 @@
 /.env
+/core/.env
 /core/vendor/
 /core/node_modules/
 /core/public/hot

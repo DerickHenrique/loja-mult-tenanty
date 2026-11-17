@@ -12,7 +12,7 @@ final class ResolveLocalTenant
     public function handle(Request $request, Closure $next): Response
     {
         $host = strtolower($request->getHost());
-        $file = config('tenants.'.$host);
+        $file = config('tenants')[$host] ?? null;
         if (!is_string($file) || !is_file($file)) {
             return response('<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Domínio não configurado</title><body style="font:16px system-ui;max-width:42rem;margin:12vh auto;padding:1rem;color:#263238"><h1>Este domínio não está configurado</h1><p>O endereço solicitado não está na lista local de lojas autorizadas.</p></body></html>', 404, ['Content-Type' => 'text/html; charset=UTF-8']);
         }

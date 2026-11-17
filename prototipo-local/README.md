@@ -22,7 +22,7 @@ cd prototipo-local
 sh ./iniciar.sh
 ```
 
-O script cria `prototipo-local/.env` com uma chave aleatória local, ignorada pelo Git, e inicia a composição com `docker compose up --build`. Deixe esse terminal aberto. Para iniciar em segundo plano, use `docker compose up --build -d` depois que a chave tiver sido criada.
+O script cria `prototipo-local/.env` com uma chave aleatória local, mantém o Inertia DevTools desligado para não gravar dados na release compartilhada somente leitura, prepara o ponto de montagem privado do Core e inicia a composição com `docker compose up --build`. Deixe esse terminal aberto. Para iniciar em segundo plano, execute o script uma vez para preparar os arquivos locais e depois use `docker compose up --build -d`.
 
 Para parar os serviços, na pasta `prototipo-local/`:
 
@@ -81,7 +81,7 @@ Edite `core/resources/js/Components/SharedMessage.jsx`. O diretório `core/` é 
 - `tenants/loja1/tenant.json` e `tenants/loja2/tenant.json`: configuração visual/conteúdo individual, fora do document root.
 - Volumes Docker `loja1-runtime` e `loja2-runtime`: sessões, cache, views compiladas, logs Laravel e temporários, cada um montado no diretório de runtime de seu tenant. Os pontos de montagem são preparados na imagem com o usuário/grupo de serviço LSAPI padrão (`nobody:nogroup` em Linux/Ubuntu); isso não altera permissões do host. O log de acesso do vhost é descartado e os erros do servidor ficam no container.
 - Volumes Docker `loja1-data` e `loja2-data`: arquivos SQLite independentes de cada tenant.
-- `prototipo-local/.env`: chave local de criptografia; fica fora de `public_html` e é ignorada pelo Git.
+- `prototipo-local/.env`: chave local de criptografia e configuração do protótipo; fica fora de `public_html` e é ignorada pelo Git. O arquivo é montado somente para leitura no Core para que o PHP LSAPI receba a chave mesmo quando o OpenLiteSpeed não herda o ambiente do container.
 - `core/composer.lock` e `core/package-lock.json`: criados no primeiro início e mantidos no diretório `core/` para travar as árvores de dependências subsequentes.
 
 Use `docker volume ls` para listar os volumes. `docker compose down -v` remove os volumes e, portanto, os dados e runtimes deste protótipo.
