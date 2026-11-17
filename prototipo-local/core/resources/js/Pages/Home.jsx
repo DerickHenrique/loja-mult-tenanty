@@ -1,8 +1,6 @@
 import SharedMessage from '../Components/SharedMessage';
 
 export default function Home({ tenant, activeHost }) {
-  	console.log("alteração 2 feita e aplicada")
-	
 	return (
     <main className="store" style={{ '--brand': tenant.theme.primary, '--accent': tenant.theme.accent, '--surface': tenant.theme.surface }}>
       <header className="topbar"><a href="/" className="wordmark" aria-label={`${tenant.name}, página inicial`}><span className="brand-mark">{tenant.brand_mark}</span>{tenant.name}</a><span className="status">Demonstração local</span></header>

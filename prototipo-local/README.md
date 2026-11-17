@@ -65,7 +65,7 @@ Edite somente o JSON correspondente:
 - `tenants/loja1/tenant.json`
 - `tenants/loja2/tenant.json`
 
-Cada arquivo contém marca, nome, textos e tokens de tema. As três cores precisam continuar no formato hexadecimal `#RRGGBB`. Atualize o navegador após salvar; Vite atualiza o Core e a aplicação lê a configuração da loja a cada requisição.
+Cada arquivo contém marca, nome, textos e tokens de tema. As três cores precisam continuar no formato hexadecimal `#RRGGBB`. Ao salvar um JSON válido, Vite recarrega as páginas abertas e a aplicação lê a configuração atual em cada requisição. A montagem da pasta da loja faz com que gravações atômicas do editor também apareçam dentro do container.
 
 ### Componente ou texto compartilhado
 
@@ -78,7 +78,7 @@ Edite `core/resources/js/Components/SharedMessage.jsx`. O diretório `core/` é 
 ## Onde ficam os arquivos e os dados
 
 - `core/`: única cópia do código da aplicação, páginas, componentes, estilos e configuração compartilhada.
-- `tenants/loja1/tenant.json` e `tenants/loja2/tenant.json`: configuração visual/conteúdo individual, fora do document root.
+- `tenants/loja1/tenant.json` e `tenants/loja2/tenant.json`: configuração visual/conteúdo individual, fora do document root. Cada pasta é montada somente para leitura no container, permitindo que alterações salvas por substituição atômica do arquivo sejam vistas pela aplicação.
 - Volumes Docker `loja1-runtime` e `loja2-runtime`: sessões, cache, views compiladas, logs Laravel e temporários, cada um montado no diretório de runtime de seu tenant. Os pontos de montagem são preparados na imagem com o usuário/grupo de serviço LSAPI padrão (`nobody:nogroup` em Linux/Ubuntu); isso não altera permissões do host. O log de acesso do vhost é descartado e os erros do servidor ficam no container.
 - Volumes Docker `loja1-data` e `loja2-data`: arquivos SQLite independentes de cada tenant.
 - `prototipo-local/.env`: chave local de criptografia e configuração do protótipo; fica fora de `public_html` e é ignorada pelo Git. O arquivo é montado somente para leitura no Core para que o PHP LSAPI receba a chave mesmo quando o OpenLiteSpeed não herda o ambiente do container.

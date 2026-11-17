@@ -12,6 +12,7 @@ services:
     working_dir: /workspace/core
     volumes:
       - ./core:/workspace/core
+      - ./tenants:/workspace/tenants:ro
       - node-modules:/workspace/core/node_modules
     command: ["sh", "-lc", "npm install --no-audit --no-fund && npm run dev -- --host 0.0.0.0"]
     ports:
@@ -33,8 +34,8 @@ services:
     volumes:
       - ./core:/var/www/core:ro
       - ./.env:/var/www/core/.env:ro
-      - ./tenants/loja1/tenant.json:/var/www/tenants/loja1/tenant.json:ro
-      - ./tenants/loja2/tenant.json:/var/www/tenants/loja2/tenant.json:ro
+      - ./tenants/loja1:/var/www/tenant-config/loja1:ro
+      - ./tenants/loja2:/var/www/tenant-config/loja2:ro
       - loja1-runtime:/var/www/tenants/loja1/runtime
       - loja1-data:/var/www/tenants/loja1/data
       - loja2-runtime:/var/www/tenants/loja2/runtime

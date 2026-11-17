@@ -13,5 +13,5 @@ RUN mkdir -p /var/www/tenants/loja1/runtime/cache /var/www/tenants/loja1/runtime
     /var/www/tenants/loja1/data \
     /var/www/tenants/loja2/runtime/cache /var/www/tenants/loja2/runtime/sessions \
     /var/www/tenants/loja2/runtime/views /var/www/tenants/loja2/runtime/logs /var/www/tenants/loja2/runtime/tmp \
-    /var/www/tenants/loja2/data \
-    && chown -R nobody:nogroup /var/www/tenants
+    /var/www/tenants/loja2/data /var/www/tenant-config/loja1 /var/www/tenant-config/loja2 \
+    && chown -R nobody:nogroup /var/www/tenants /var/www/tenant-config

@@ -36,3 +36,23 @@
 
 - Os testes HTTP enviaram o cabeçalho `Host` diretamente para `127.0.0.1`. Para abrir os endereços pelo nome no navegador, as entradas de `teste1.local` e `teste2.local` (ou os aliases `.test`) ainda precisam estar configuradas no arquivo `hosts` da máquina, conforme o README.
 - O entrypoint da imagem emite um aviso ao tentar ajustar a propriedade do arquivo de configuração montado como somente leitura. O aviso não impede o servidor de iniciar nem as páginas de responder.
+
+## Atualização — arquivos de tenant não refletiam alterações
+
+**Data:** 16/11/2026, 22:13 (America/Sao_Paulo)
+
+### Diagnóstico e correção
+
+- Reproduzi o problema: o arquivo do host `tenants/loja1/tenant.json` estava com o nome `Casa Esotérica`, enquanto o container ainda lia `Casa Botânica`. A composição montava cada JSON como um arquivo individual; ao salvar por substituição atômica, o mount podia continuar apontando para o arquivo antigo.
+- Mudei os mounts para pastas inteiras de configuração, fora do document root e somente para leitura. O caminho permitido de cada tenant foi atualizado para a nova localização no container.
+- Configurei o Vite para observar `tenants/**/*.json`, além dos caminhos de atualização existentes. Ao salvar um JSON, o navegador conectado recebe um full reload e Laravel lê o conteúdo novo na requisição seguinte.
+- Atualizei o README com o comportamento após salvar.
+
+### Verificações
+
+- `docker compose up --build -d`: concluído; `web` e `frontend` ativos.
+- Confirmei que o JSON do container agora contém `Casa Esotérica`, igual ao arquivo atual do host.
+- Host `teste1.local`: HTTP 200 com `Casa Esotérica`; host `teste2.local`: HTTP 200 com `Traço Urbano`; domínio desconhecido: HTTP 404.
+- Conectei ao WebSocket HMR do Vite, alterei um JSON temporário na pasta montada e recebi `full-reload`. Removi o arquivo temporário após a verificação.
+- `docker compose config -q` e `git diff --check`: aprovados.
+- Preservei as alterações já presentes do usuário em `tenant.json`, `Home.jsx` e `SharedMessage.jsx`.

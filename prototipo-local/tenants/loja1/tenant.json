@@ -1,7 +1,7 @@
 {
   "id": "loja1",
-  "name": "Casa Botânica",
-  "brand_mark": "B",
+  "name": "Casa Esotérica",
+  "brand_mark": "E",
   "theme": {
     "label": "Jardim sereno",
     "primary": "#29483b",
@@ -12,6 +12,6 @@
     "eyebrow": "Objetos para uma vida com mais calma",
     "title": "Um pouco mais perto da natureza.",
     "description": "Peças, plantas e pequenos rituais para deixar a casa florescer no seu próprio ritmo.",
-    "body": "Na Casa Botânica, cada escolha convida a desacelerar. Uma vitrine de demonstração que recebe seu tema e conteúdo a partir da configuração desta loja."
+    "body": "Na Casa Esotérica, cada escolha convida a desacelerar. Uma vitrine de demonstração que recebe seu tema e conteúdo a partir da configuração desta loja."
   }
 }
